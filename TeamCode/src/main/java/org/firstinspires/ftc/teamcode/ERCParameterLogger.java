@@ -43,6 +43,10 @@ public class ERCParameterLogger {
         _telemetry.update();
     }
 
+    //*********************************************************************
+    // Adding parameters to telemetry
+    // Parameter types: string, integer and double
+    //*********************************************************************
     public void addParameter(String paramString, String val) {
         _paramMap.put(paramString, _telemetry.addData(paramString, val));
     }
@@ -53,28 +57,25 @@ public class ERCParameterLogger {
         _paramMap.put(paramString, _telemetry.addData(paramString, val));
     }
 
-    public void updateStatus(String val, Boolean updateNow) {
+
+    //*********************************************************************
+    // Updating status and parameters
+    //*********************************************************************
+    public void updateStatus(String val) {
         _statusUpdate.setValue(val);
-        if (updateNow)
-            _telemetry.update();
     }
-    public void updateParameter(String paramString, int val, Boolean updateNow) {
+    public void updateParameter(String paramString, int val) {
         Objects.requireNonNull(_paramMap.get(paramString)).setValue(val);
-        if (updateNow)
-            _telemetry.update();
     }
-    public void updateParameter(String paramString, double val, Boolean updateNow) {
+    public void updateParameter(String paramString, double val) {
         Objects.requireNonNull(_paramMap.get(paramString)).setValue(val);
-        if (updateNow)
-            _telemetry.update();
     }
     public void updateParameter(String paramString, String val, Boolean updateNow) {
         Objects.requireNonNull(_paramMap.get(paramString)).setValue(val);
-        if (updateNow)
-            _telemetry.update();
+        if (updateNow) _telemetry.update();
     }
-    public void updateParameterStatus() {
-            _telemetry.update();
+    public void updateAll() {
+        _telemetry.update();
     }
 
 
@@ -88,7 +89,7 @@ public class ERCParameterLogger {
     public void writeMsgToDriverHub(Object msg)
     {
         // Send message to the driver hub.
-        updateStatus(msg.toString(), true);
+        updateStatus(msg.toString());
     }
 
     public void writeMsg(Object msg)

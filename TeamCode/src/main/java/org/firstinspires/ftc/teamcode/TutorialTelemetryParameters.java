@@ -19,7 +19,6 @@ public class TutorialTelemetryParameters extends LinearOpMode {
     ERCParameterLogger _logger = new ERCParameterLogger(this);
     DcMotor _motor;
     int _timeSeconds = 0;
-    Boolean _updateStatusImmediately = false;
 
     // I'm just using "param#" as generic parameters here.
     // You should name the parameters according to the value that it's tracking.
@@ -99,21 +98,20 @@ public class TutorialTelemetryParameters extends LinearOpMode {
             if ((_timeSeconds % 2) == 0)
             {
                 // Seconds are even values
-                _logger.updateParameter(_param1, _timeSeconds, _updateStatusImmediately);
-                _logger.updateParameter(_param2, _timeSeconds * 2, _updateStatusImmediately);
-                _logger.updateParameter(_param3, _timeSeconds * 3, _updateStatusImmediately);
+                _logger.updateParameter(_param1, _timeSeconds);
+                _logger.updateParameter(_param2, _timeSeconds * 2);
+                _logger.updateParameter(_param3, _timeSeconds * 3);
             }
             else
             {
                 // Seconds are odd values
-                _logger.updateParameter(_param4, _timeSeconds * 4, _updateStatusImmediately);
-                _logger.updateParameter(_param5, _timeSeconds * 5, _updateStatusImmediately);
-                _logger.updateParameter(_param6, _timeSeconds * 6, _updateStatusImmediately);
+                _logger.updateParameter(_param4, _timeSeconds * 4);
+                _logger.updateParameter(_param5, _timeSeconds * 5);
+                _logger.updateParameter(_param6, _timeSeconds * 6);
             }
 
             // Update all parameters at once if they weren't updated immediately.
-            if (!_updateStatusImmediately)
-                _logger.updateParameterStatus();;
+            _logger.updateAll();
         }
 
         msg = "stop request was detected";
